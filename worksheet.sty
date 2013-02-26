@@ -1,0 +1,52 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{worksheet}[2013/02/24 Worksheet]
+
+\RequirePackage[left=0.5in,right=0.5in,nohead]{geometry}
+\RequirePackage{parskip}
+\RequirePackage{fullpage}
+\RequirePackage{mathtools}
+
+\newcommand{\hop}{
+	\vspace{0.5cm}
+}
+
+\newcommand{\jump}{
+     \vspace{3cm}}
+
+
+\newcommand{\answerbox}{
+\fbox{
+	\begin{minipage}{0.35\textwidth}
+		\hfill\vspace{2.5cm}
+	\end{minipage}
+	}
+}
+
+\newcommand{\makeheader}[2]{
+	\begin{minipage}{0.5\textwidth}
+		#1
+		
+		#2
+		
+		Ms. Gasaway
+	\end{minipage}
+	\begin{minipage}{0.5\textwidth}
+		Name:\underline{\hspace{4cm}}
+	
+		Date:\underline{\hspace{4cm}}
+	\end{minipage}
+	
+	\vspace{1cm}
+	
+	\noindent\makebox[\linewidth]{\rule{\textwidth}{1pt}}
+}
+
+\newenvironment{elbowroom}{
+	\begin{description}
+		\setlength{\itemsep}{45pt}
+		\setlength{\parsep}{20pt}
+}{
+	\end{description}
+}
+
+\endinput
