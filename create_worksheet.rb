@@ -1,5 +1,6 @@
 require 'erb'
 require 'date'
+require 'FileUtils'
 
 class WorksheetInfo
   attr_accessor :class_name, :date, :aim, :title
@@ -32,9 +33,8 @@ worksheet.title = gets.chomp
 template = ERB.new File.new("worksheet_template.tex.erb").read
 
 class_directory = worksheet.class_name.gsub(" ","")
-Dir.mkdir class_directory unless File.directory? class_directory
-Dir.mkdir "#{class_directory}/#{worksheet.label_date}" unless File.directory? "#{class_directory}/#{worksheet.label_date}"
-file_name = "#{class_directory}/#{worksheet.label_date}/#{worksheet.title}.tex"
+FileUtils.mkdir_p "#{ENV['HOME']}/worksheets/#{class_directory}/#{worksheet.label_date}" unless File.directory? "#{class_directory}/#{worksheet.label_date}"
+file_name = "#{ENV['HOME']}/worksheets/#{class_directory}/#{worksheet.label_date}/#{worksheet.title}.tex"
 
 File.open file_name, "w" do |file|
   file.write template.result(worksheet.get_binding)
