@@ -31,7 +31,7 @@ module LatexHelper
     end
     
     def answer_space(str)
-    "\\makebox{\\begin{minipage} {0.45\\textwidth} #{str} \\hfill \\vspace{4cm} \\end{minipage}}"
+    "\\makebox{\\begin{minipage} {0.50\\textwidth} #{str} \\hfill \\vspace{4cm} \\end{minipage}}"
     end
     
   end

@@ -19,6 +19,18 @@ class WorksheetInfo
   end
 end
 
+def start_generator?
+  print "Generate Problems? (y or n): "
+  generate = gets.chomp
+  if generate == "y"
+    true
+  elsif generate == "n"
+    false
+  else
+    start_generator?
+  end
+end
+
 worksheet = WorksheetInfo.new
 print "Class Name (ex 'Saturday Academy'): "
 worksheet.class_name = gets.chomp
@@ -36,9 +48,14 @@ template = ERB.new File.new("worksheet_template.tex.erb").read
 class_directory = worksheet.class_name.gsub(" ","")
 FileUtils.mkdir_p "#{ENV['HOME']}/worksheets/#{class_directory}/#{worksheet.label_date}" unless File.directory? "#{class_directory}/#{worksheet.label_date}"
 file_name = "#{ENV['HOME']}/worksheets/#{class_directory}/#{worksheet.label_date}/#{worksheet.title}.tex"
-
 file = File.open file_name, "w"
 file.write template.result(worksheet.get_binding)
-
+generate_problems file if start_generator?
+file.write "\n"
+file.write "\\end{document}"
 file.close
 puts "An empty worksheet has been created at #{file_name}."
+
+
+
+

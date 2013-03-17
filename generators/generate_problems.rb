@@ -55,8 +55,4 @@ def set_options(available_options)
   return options
 end
 
-Dir.chdir("/Users/stuart/coding/kate_hw/TEST")
-file = File.open "test_problems.tex", "w"
-generate_problems file
-
 
