@@ -3,13 +3,14 @@ require_relative "integers"
 require "active_support/all"
 IntegerRegex = /\A\d+\z/
 
-def generate_problems
+def generate_problems(file)
   available_types = ["integer", "fraction"]
-  sentence_options = {two_words_connector: ' or ', last_word_connector: ', or ' }
+  sentence_options = { two_words_connector: ' or ', last_word_connector: ', or ' }
   print "Type of problem (#{available_types.to_sentence(sentence_options)}): "
   problem_type = gets.chomp.downcase
   if available_types.include? problem_type
-    send("generate_#{problem_type}_problems")
+    problems_array = send("generate_#{problem_type}_problems")
+    file.write problems_array.join("\n")
   else
     generate_problems
   end
@@ -54,6 +55,8 @@ def set_options(available_options)
   return options
 end
 
-generate_problems
+Dir.chdir("/Users/stuart/coding/kate_hw/TEST")
+file = File.open "test_problems.tex", "w"
+generate_problems file
 
 

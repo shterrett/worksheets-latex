@@ -66,7 +66,7 @@ def make_fraction_problems(problem_options = {})
         method = :diff_denom_result_gt_one
     end
   end
-  
+  problems_array = []
   problem_options[:number_problems].times do
     fraction_parts = send(method, random_generator, fraction_options)
     fract_1 = LatexHelper.make_fraction(fraction_parts[:num_1], fraction_parts[:denom_1])
@@ -78,8 +78,9 @@ def make_fraction_problems(problem_options = {})
     fract_problem = LatexHelper.send(problem_options[:operation], fract_1, fract_2)
     fract_problem_in_math = LatexHelper.inline_math_mode(fract_problem)
     final_problem = LatexHelper.answer_space(fract_problem_in_math)
-    puts final_problem
+    problems_array << final_problem
   end
+  problems_array
 end
 
 

@@ -1,6 +1,7 @@
 require 'erb'
 require 'date'
 require 'FileUtils'
+require './generators/generate_problems'
 
 class WorksheetInfo
   attr_accessor :class_name, :date, :aim, :title
@@ -36,7 +37,8 @@ class_directory = worksheet.class_name.gsub(" ","")
 FileUtils.mkdir_p "#{ENV['HOME']}/worksheets/#{class_directory}/#{worksheet.label_date}" unless File.directory? "#{class_directory}/#{worksheet.label_date}"
 file_name = "#{ENV['HOME']}/worksheets/#{class_directory}/#{worksheet.label_date}/#{worksheet.title}.tex"
 
-File.open file_name, "w" do |file|
-  file.write template.result(worksheet.get_binding)
-end
+file = File.open file_name, "w"
+file.write template.result(worksheet.get_binding)
+
+file.close
 puts "An empty worksheet has been created at #{file_name}."
