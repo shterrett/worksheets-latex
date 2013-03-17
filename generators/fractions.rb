@@ -1,43 +1,37 @@
-require "./latex_helper"
+require_relative "latex_helper"
 
-def same_denom_result_lt_one(rn, options = {})
+def same_denom_result_lt_one(rn, options)
   numerator_2 = Proc.new { |numerator_1, denominator| rn.rand(1..(denominator - numerator_1)) }
-  return get_fractions_same_denom(rn, numerator_2, options = {})
+  return get_fractions_same_denom(rn, numerator_2, options)
 end
 
-def same_denom_result_gt_one(rn, options = {})
+def same_denom_result_gt_one(rn, options)
   numerator_2 = Proc.new { |numerator_1, denominator| rn.rand((denominator - numerator_1)...denominator) }
-  return get_fractions_same_denom(rn, numerator_2, options = {})
+  return get_fractions_same_denom(rn, numerator_2, options)
 end
 
-def diff_denom_result_lt_one(rn, options = {})
+def diff_denom_result_lt_one(rn, options)
   equiv_numerator_2 = Proc.new do |equiv_numerator_1, equiv_denominator| 
     rn.rand(1..(equiv_denominator - equiv_numerator_1))
   end
-  return get_fractions_diff_denom(rn, equiv_numerator_2, options = {})
+  return get_fractions_diff_denom(rn, equiv_numerator_2, options)
 end
 
-def diff_denom_result_gt_one(rn, options = {})  
+def diff_denom_result_gt_one(rn, options)  
   equiv_numerator_2 = Proc.new do |equiv_numerator_1, equiv_denominator|
     rn.rand((equiv_denominator - equiv_numerator_1)...equiv_denominator)
   end
-  return get_fractions_diff_denom(rn, equiv_numerator_2, options = {})
+  return get_fractions_diff_denom(rn, equiv_numerator_2, options)
 end
 
-def get_fractions_same_denom(rn, get_num_2, options = {})
-  options[:min_num] ||= 1
-  options[:min_denom] ||= 2
-  options[:max_denom] ||= 100
+def get_fractions_same_denom(rn, get_num_2, options)
   denominator = rn.rand(options[:min_denom]..options[:max_denom])
   numerator_1 = rn.rand(options[:min_num]...denominator)
   numerator_2 = get_num_2.call(numerator_1, denominator)
   return { num_1: numerator_1, num_2: numerator_2, denom_1: denominator, denom_2: denominator }
 end
 
-def get_fractions_diff_denom(rn, get_num_2, options = {})
-  options[:min_num] ||= 1
-  options[:min_denom] ||= 2
-  options[:max_denom] ||= 100
+def get_fractions_diff_denom(rn, get_num_2, options)
   denominator_1 = rn.rand(options[:min_denom]..options[:max_denom])
   denominator_2 = rn.rand(options[:min_denom]..options[:max_denom])
   numerator_1 = rn.rand(options[:min_num]...denominator_1)
@@ -78,8 +72,8 @@ def make_fraction_problems(problem_options = {})
     fract_1 = LatexHelper.make_fraction(fraction_parts[:num_1], fraction_parts[:denom_1])
     fract_2 = LatexHelper.make_fraction(fraction_parts[:num_2], fraction_parts[:denom_2])
     unless problem_options[:negatives] == :no
-      fract_1 = rn.rand(1..2) == 1 ? LatexHelper.make_negative(fract_1) : fract_1
-      fract_2 = rn.rand(1..2) == 1 ? LatexHelper.make_negative(fract_2) : fract_2
+      fract_1 = random_generator.rand(1..2) == 1 ? LatexHelper.make_negative(fract_1) : fract_1
+      fract_2 = random_generator.rand(1..2) == 1 ? LatexHelper.make_negative(fract_2) : fract_2
     end
     fract_problem = LatexHelper.send(problem_options[:operation], fract_1, fract_2)
     fract_problem_in_math = LatexHelper.inline_math_mode(fract_problem)
@@ -88,7 +82,6 @@ def make_fraction_problems(problem_options = {})
   end
 end
 
-make_fraction_problems
 
 
 

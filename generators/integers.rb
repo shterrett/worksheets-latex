@@ -1,8 +1,6 @@
-require "./latex_helper"
+require_relative "latex_helper"
 
-random_generator = Random.new
-
-def get_integer(rn, options = {})
+def get_integer(rn, options)
   options[:min] ||= 0
   options[:max] ||= 100
   rn.rand(options[:min]..options[:max])
@@ -20,8 +18,8 @@ def make_integer_problems(problem_options = {})
     int_1 = get_integer(random_generator, int_options)
     int_2 = get_integer(random_generator, int_options)
     unless problem_options[:negatives] == :no
-      int_1 = rn.rand(1..2) == 1 ? LatexHelper.make_negative(int_1) : int_1
-      int_2 = rn.rand(1..2) == 1 ? LatexHelper.make_negative(int_2) : int_2
+      int_1 = random_generator.rand(1..2) == 1 ? LatexHelper.make_negative(int_1) : int_1
+      int_2 = random_generator.rand(1..2) == 1 ? LatexHelper.make_negative(int_2) : int_2
     end
     int_problem = LatexHelper.send(problem_options[:operation], int_1, int_2)
     int_problem_in_math = LatexHelper.inline_math_mode(int_problem)
@@ -29,5 +27,3 @@ def make_integer_problems(problem_options = {})
     puts final_problem
   end
 end
-
-make_integer_problems
