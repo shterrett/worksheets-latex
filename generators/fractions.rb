@@ -1,4 +1,5 @@
 require_relative "latex_helper"
+require_relative "generate_problems"
 
 def same_denom_result_lt_one(rn, options)
   numerator_2 = Proc.new { |numerator_1, denominator| rn.rand(1..(denominator - numerator_1)) }
@@ -75,7 +76,11 @@ def make_fraction_problems(problem_options = {})
       fract_1 = random_generator.rand(1..2) == 1 ? LatexHelper.make_negative(fract_1) : fract_1
       fract_2 = random_generator.rand(1..2) == 1 ? LatexHelper.make_negative(fract_2) : fract_2
     end
-    fract_problem = LatexHelper.send(problem_options[:operation], fract_1, fract_2)
+    if problem_options[:operation] == :random
+      fract_problem = generate_random_problem(fract_1, fract_2)
+    else
+      fract_problem = LatexHelper.send(problem_options[:operation], fract_1, fract_2)
+    end
     fract_problem_in_math = LatexHelper.inline_math_mode(fract_problem)
     final_problem = LatexHelper.answer_space(fract_problem_in_math)
     problems_array << final_problem

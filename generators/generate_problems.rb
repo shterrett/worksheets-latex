@@ -1,5 +1,6 @@
 require_relative "fractions"
 require_relative "integers"
+require_relative "latex_helper"
 require "active_support/all"
 IntegerRegex = /\A\d+\z/
 
@@ -12,7 +13,7 @@ def generate_problems(file)
     problems_array = send("generate_#{problem_type}_problems")
     file.write problems_array.join("\n")
   else
-    generate_problems
+    generate_problems file
   end
 end
 
@@ -21,14 +22,14 @@ def generate_fraction_problems
   available_options = { min_num: { instr: "Minimum Numerator - greater than zero: ", test: IntegerRegex }, min_denom: { instr: "Minimum Denominator - greater than one: ", test: IntegerRegex }, 
                         max_denom: { instr: "Maximum Denominator - greater than zero: ", test: IntegerRegex }, negatives: { instr: "Include Negative Fractions? (yes or no): ", test: /\A(yes|no)\z/ }, 
                         denom: { instr: "'same' or 'different' denominators: ", test: /\A(same|different)\z/ }, sum: { instr: "Sum Greater Than or Less Than One (gt or lt): ", test: /\A(gt|lt)\z/ },
-                        operation: { instr: "Operation: addition, subtraction, multiplication, or division: ", test: /\A(addition|subtraction|multiplication|division)\z/ }, number_problem: { instr: "Number of Problems: ", test: IntegerRegex } }
+                        operation: { instr: "Operation: addition, subtraction, multiplication, division, or random: ", test: /\A(addition|subtraction|multiplication|division|random)\z/ }, number_problem: { instr: "Number of Problems: ", test: IntegerRegex } }
   options = set_options(available_options)
   make_fraction_problems(options)
 end
 
 def generate_integer_problems
   available_options = { min: { instr: "Minimum Integer - greater than zero: ", test: IntegerRegex }, max: { instr: "Maximum Integer: ", test: IntegerRegex },
-                       negatives: { instr: "Include Negative numbers? (yes or no): ", test: /\A(yes|no)\z/ } , operation: { instr: "Operation: addition, subtraction, multiplication, or division: ", test: /\A(addition|subtraction|multiplication|division)\z/ },
+                       negatives: { instr: "Include Negative numbers? (yes or no): ", test: /\A(yes|no)\z/ } , operation: { instr: "Operation: addition, subtraction, multiplication, division, or random: ", test: /\A(addition|subtraction|multiplication|division|random)\z/ },
                        number_problems: { instr: "Number of problems: ", test: IntegerRegex } }
   options = set_options(available_options)
   make_integer_problems(options)
@@ -55,4 +56,9 @@ def set_options(available_options)
   return options
 end
 
+def generate_random_problem(num_1, num_2)
+  operations = [:addition, :subtraction, :multiplication, :division]
+  rand_index = rand(0..3)
+  LatexHelper.send(operations[rand_index], num_1, num_2)
+end
 
