@@ -1,6 +1,13 @@
 require_relative "latex_helper"
 require_relative "generate_problems"
 
+def get_fraction(rn, options)
+  num = rn.rand(options[:min]..options[:max])
+  denom = rn.rand(options[:min]..options[:max])
+  return { num: num, denom: denom }
+end
+  
+
 def same_denom_result_lt_one(rn, options)
   numerator_2 = Proc.new { |numerator_1, denominator| rn.rand(1..(denominator - numerator_1)) }
   return get_fractions_same_denom(rn, numerator_2, options)

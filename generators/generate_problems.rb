@@ -1,11 +1,12 @@
 require_relative "fractions"
 require_relative "integers"
 require_relative "latex_helper"
+require_relative "single_variable_algebra"
 require "active_support/all"
 IntegerRegex = /\A\d+\z/
 
 def generate_problems(file)
-  available_types = ["integer", "fraction"]
+  available_types = ["integer", "fraction", "single_variable_algebra"]
   sentence_options = { two_words_connector: ' or ', last_word_connector: ', or ' }
   print "Type of problem (#{available_types.to_sentence(sentence_options)}): "
   problem_type = gets.chomp.downcase
@@ -24,7 +25,7 @@ def generate_fraction_problems
                         denom: { instr: "'same' or 'different' denominators: ", test: /\A(same|different)\z/ }, sum: { instr: "Sum Greater Than or Less Than One (gt or lt): ", test: /\A(gt|lt)\z/ },
                         operation: { instr: "Operation: addition, subtraction, multiplication, division, or random: ", test: /\A(addition|subtraction|multiplication|division|random)\z/ }, number_problem: { instr: "Number of Problems: ", test: IntegerRegex } }
   options = set_options(available_options)
-  make_fraction_problems(options)
+  make_fraction_problems options
 end
 
 def generate_integer_problems
@@ -32,7 +33,14 @@ def generate_integer_problems
                        negatives: { instr: "Include Negative numbers? (yes or no): ", test: /\A(yes|no)\z/ } , operation: { instr: "Operation: addition, subtraction, multiplication, division, or random: ", test: /\A(addition|subtraction|multiplication|division|random)\z/ },
                        number_problems: { instr: "Number of problems: ", test: IntegerRegex } }
   options = set_options(available_options)
-  make_integer_problems(options)
+  make_integer_problems options
+end
+
+def generate_single_variable_algebra_problems
+  available_options = { coeff_type: {instr: "'integer' or 'fraction' coefficents: ", test: /\A(integer|fraction)\z/}, min: { instr: "Minimum value of Coefficent: ", test: IntegerRegex }, max: { instr: "Maximum value of Coefficent: ", test: IntegerRegex },
+                        num_steps: { instr: "Number of Inverse Operations: ", test: IntegerRegex }, number_problems: { instr: "Number of problems: ", test: IntegerRegex } }  
+  options = set_options(available_options)
+  make_single_variable_algebra_problems options
 end
 
 def set_options(available_options)
