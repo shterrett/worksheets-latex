@@ -41,7 +41,10 @@ end
 
 def get_fractions_diff_denom(rn, get_num_2, options)
   denominator_1 = rn.rand(options[:min_denom]..options[:max_denom])
-  denominator_2 = rn.rand(options[:min_denom]..options[:max_denom])
+  denominator_2 = denominator_1
+  while denominator_1 == denominator_2
+    denominator_2 = rn.rand(options[:min_denom]..options[:max_denom])
+  end
   numerator_1 = rn.rand(options[:min_num]...denominator_1)
   equiv_denominator = denominator_1 * denominator_2
   equiv_numerator_1 = numerator_1 * denominator_2
@@ -94,8 +97,5 @@ def make_fraction_problems(problem_options = {})
   end
   problems_array
 end
-
-
-
 
 

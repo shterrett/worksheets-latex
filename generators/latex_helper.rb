@@ -26,7 +26,7 @@ module LatexHelper
     "#{first} \\div #{second} "
     end
     
-    def parantheses(str)
+    def parentheses(str)
       "(#{str})"
     end
        
