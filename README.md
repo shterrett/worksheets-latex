@@ -15,5 +15,5 @@ LaTeX template and ruby script to generate new worksheets for class
   
 **TODO:**
 + Quadratic equations
-+ Wrap generators in modules
++ Refactor code into better OO style
 + Tests

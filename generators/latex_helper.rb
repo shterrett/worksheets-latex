@@ -1,7 +1,5 @@
 module LatexHelper
   
-  class << self
-
     def make_fraction(num, denom)
     "\\frac{#{num}}{#{denom}}"
     end
@@ -42,5 +40,4 @@ module LatexHelper
     "\\makebox{\\begin{minipage} {0.50\\textwidth} #{str} \\hfill \\vspace{4cm} \\end{minipage}}"
     end
     
-  end
 end
