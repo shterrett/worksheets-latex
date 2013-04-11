@@ -16,4 +16,6 @@ LaTeX template and ruby script to generate new worksheets for class
 **TODO:**
 + Quadratic equations
 + Refactor code into better OO style
+++ Module for math helpers (operation accessor, random operation, etc)
+++ Fraction logic - Fraction object?
 + Tests

@@ -98,4 +98,23 @@ def make_fraction_problems(problem_options = {})
   problems_array
 end
 
-
+class FractionProblem
+  include LatexHelper
+  attr_accessor :min_num, :min_denom, :max_denom, :negatives, 
+                :denom, :sum, :operation, :number_problems, :rn,
+                :fraction_1, :fraction_2
+  
+  def initialize(options = {})
+    self.min_num = options[:min_num] || 1
+    self.min_denom = options[:min_denom] || 2
+    self.max_denom = options[:max_denom] || 100
+    self.negatives = options[:negatives] || :no
+    self.denom = options[:denom] || :same
+    self.sum = options[:sum] || :lt_one
+    self.operation = options[:operation] || :addition
+    self.number_problems = options[:number_problems] || 10
+    self.rn = Random.new
+  end
+  
+  
+end
