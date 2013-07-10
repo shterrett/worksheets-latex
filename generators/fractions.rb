@@ -16,7 +16,7 @@ def make_fraction_problems(input_options = {})
       input_options[:operation] = [:addition, :subtraction, :multiplication, :division].sample
     end
     fractions = FractionProblem.new(input_options)
-    problems_array << fractions.format_problem
+    problems_array << fractions.to_s
   end
   problems_array
 end
@@ -58,7 +58,7 @@ class FractionProblem
     "#{@denom}_denom_result_#{@sum}_one".to_sym
   end
   
-  def format_problem
+  def to_s
     problem = send(@operation, @fraction_1, @fraction_2)
     problem = inline_math_mode(problem)
     answer_space(problem)
