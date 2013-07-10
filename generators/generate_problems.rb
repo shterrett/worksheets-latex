@@ -22,7 +22,7 @@ def generate_fraction_problems
 
   available_options = { min_num: { instr: "Minimum Numerator - greater than zero: ", test: IntegerRegex }, min_denom: { instr: "Minimum Denominator - greater than one: ", test: IntegerRegex }, 
                         max_denom: { instr: "Maximum Denominator - greater than zero: ", test: IntegerRegex }, negatives: { instr: "Include Negative Fractions? (yes or no): ", test: /\A(yes|no)\z/ }, 
-                        denom: { instr: "'same' or 'different' denominators: ", test: /\A(same|different)\z/ }, sum: { instr: "Sum Greater Than or Less Than One (gt or lt): ", test: /\A(gt|lt)\z/ },
+                        denom: { instr: "'same' or 'diff' denominators: ", test: /\A(same|diff)\z/ }, sum: { instr: "Sum Greater Than or Less Than One (gt or lt): ", test: /\A(gt|lt)\z/ },
                         operation: { instr: "Operation: addition, subtraction, multiplication, division, or random: ", test: /\A(addition|subtraction|multiplication|division|random)\z/ }, number_problem: { instr: "Number of Problems: ", test: IntegerRegex } }
   options = set_options(available_options)
   make_fraction_problems options

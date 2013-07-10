@@ -19,3 +19,7 @@ LaTeX template and ruby script to generate new worksheets for class
 ++ Module for math helpers (operation accessor, random operation, etc)
 ++ Fraction logic - Fraction object?
 + Tests
+
+
+
+# Fix LatexHelper methods! cannot reference Module (class) level methods anymore

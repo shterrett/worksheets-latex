@@ -1,6 +1,6 @@
 require 'erb'
 require 'date'
-require 'FileUtils'
+require 'file_utils'
 require './generators/generate_problems'
 
 class WorksheetInfo

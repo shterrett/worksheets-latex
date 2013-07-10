@@ -60,4 +60,3 @@ class Integer
     [true, false].sample
   end
 end
-    
