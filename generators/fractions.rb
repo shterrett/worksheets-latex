@@ -10,11 +10,7 @@ end
 def make_fraction_problems(input_options = {})
   problems_array = []
   number_of_problems = input_options[:number_problems] || 10
-  random = (input_options[:operation] == random)
   number_of_problems.times do
-    if random
-      input_options[:operation] = [:addition, :subtraction, :multiplication, :division].sample
-    end
     fractions = FractionProblem.new(input_options)
     problems_array << fractions.to_s
   end
@@ -64,7 +60,15 @@ class FractionProblem
     answer_space(problem)
   end
   
+  def operation
+    @operation == :random ? get_random_operation : @operation
+  end
+  
   private
+  
+  def get_random_operation
+    [:addition, :subtraction, :multiplication, :division].sample
+  end
   
   def make_fractions
     self.send(method)
